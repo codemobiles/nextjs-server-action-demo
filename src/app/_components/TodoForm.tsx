@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { submitTodo } from "../_actions/todo-action";
+import SubmitButton from "./SubmitButton";
 
 type Props = {};
 
@@ -23,9 +24,7 @@ export default function TodoForm({}: Props) {
         placeholder="Write your job...."
       />
 
-      <button className="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
-        Submit
-      </button>
+      <SubmitButton />
     </form>
   );
 }
