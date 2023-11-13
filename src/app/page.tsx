@@ -1,6 +1,5 @@
-import { revalidatePath } from "next/cache";
 import React from "react";
-import { submitTodo } from "./_actions/todo-action";
+import TodoForm from "./_components/TodoForm";
 
 type Props = {};
 
@@ -11,18 +10,7 @@ export default async function Index({}: Props) {
   return (
     <div>
       <h1 className="text-2xl font-bold"> Todos (NextJS14 Server Action)</h1>
-      <form action={submitTodo} className="flex flex-col w-[300px] my-16">
-        <input
-          type="text"
-          name="message"
-          className="px-4 py-2 mb-3"
-          placeholder="Write your job..."
-        />
-
-        <button className="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
-          Submit
-        </button>
-      </form>
+      <TodoForm />
 
       <ul>
         {todoList.map((todo) => (
