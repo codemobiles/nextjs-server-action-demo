@@ -20,7 +20,7 @@ export default function TodoForm({}: Props) {
         type="text"
         name="message"
         className="px-4 py-2 mb-3"
-        placeholder="Write your job..."
+        placeholder="Write your job...."
       />
 
       <button className="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
