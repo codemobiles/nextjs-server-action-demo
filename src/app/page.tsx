@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import React from "react";
+import { submitTodo } from "./_actions/todo-action";
 
 type Props = {};
 
@@ -10,20 +11,7 @@ export default async function Index({}: Props) {
   return (
     <div>
       <h1 className="text-2xl font-bold"> Todos (NextJS14 Server Action)</h1>
-      <form
-        action={async (formData: FormData) => {
-          "use server";
-          const message = formData.get("message");
-          await fetch("http://localhost:3000/api/todo", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message }),
-          });
-
-          revalidatePath("/");
-        }}
-        className="flex flex-col w-[300px] my-16"
-      >
+      <form action={submitTodo} className="flex flex-col w-[300px] my-16">
         <input
           type="text"
           name="message"
