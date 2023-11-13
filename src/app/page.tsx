@@ -1,12 +1,29 @@
+import { revalidatePath } from "next/cache";
 import React from "react";
 
 type Props = {};
 
-export default function Index({}: Props) {
+export default async function Index({}: Props) {
+  const result = await fetch("http://localhost:3000/api/todo");
+  const todoList: { id: string; message: string }[] = await result.json();
+
   return (
     <div>
       <h1 className="text-2xl font-bold"> Todos (NextJS14 Server Action)</h1>
-      <form className="flex flex-col w-[300px] my-16">
+      <form
+        action={async (formData: FormData) => {
+          "use server";
+          const message = formData.get("message");
+          await fetch("http://localhost:3000/api/todo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message }),
+          });
+
+          revalidatePath("/");
+        }}
+        className="flex flex-col w-[300px] my-16"
+      >
         <input
           type="text"
           name="message"
@@ -18,6 +35,14 @@ export default function Index({}: Props) {
           Submit
         </button>
       </form>
+
+      <ul>
+        {todoList.map((todo) => (
+          <li key={todo.id}>
+            Job {todo.id}: {todo.message}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
